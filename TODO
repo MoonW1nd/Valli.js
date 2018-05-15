@@ -1,0 +1,17 @@
+Todo:
+  develop:
+    ✔ Add first simple realization @done(18-05-15 23:33)
+    types for validation:
+      ☐ Number
+      ☐ String
+      ☐ Boolean
+      ☐ Undefined
+      ☐ Null
+      ☐ NaN
+      ☐ Symbol
+
+  infrastructure:
+    ☐ add js linter
+    ☐ add babel
+    ☐ add Jest or Mocha for TDD develop
+    ☐ add precommit hooks
