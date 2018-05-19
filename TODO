@@ -2,12 +2,17 @@ Todo:
   develop:
     ✔ Add first simple realization @done(18-05-15 23:33)
     types for validation:
-      ☐ Number
-      ☐ String
-      ☐ Boolean
-      ☐ Undefined
+      ✔ Number @done(18-05-19 10:42)
+      ✔ String @done(18-05-19 10:42)
+      ✔ Boolean @done(18-05-19 10:42)
+      ✔ Undefined @done(18-05-19 10:42)
+      ✔ Array @done(18-05-19 10:46)
+      ☐ Object
+      ☐ Finite
+      ☐ Int
+      ☐ Float
       ☐ Null
-      ☐ NaN
+      ✔ NaN @done(18-05-19 10:42)
       ☐ Symbol
 
   infrastructure:
