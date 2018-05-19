@@ -1,6 +1,7 @@
 (function( window ) {
   window.addEventListener('load', function () {
 
+
     /*
     * Check types functions
     */
@@ -24,6 +25,22 @@
       return toString.call( value ) === '[object Array]';
     }
 
+    var isObject = function ( value ) {
+      return toString.call( value ) === '[object Object]';
+    }
+
+
+    /*
+      Implementation requred field
+    */
+    isObject.required = function (value) {
+      if ( isUndefined( value ) ) {
+        throw new Error('filde requre by defined')
+      } else {
+        return isObject( value )
+      }
+    }
+
 
     /*
     * Validate interface function
@@ -31,19 +48,23 @@
     var validateInterface = function( options, interfaceOptions ) {
       var interfaceIsValid = true;
 
-      for ( let key in options ) {
+      for ( let key in interfaceOptions ) {
         var interfaceValidationFunction = interfaceOptions[ key ];
         var value = options[ key ]
 
         if ( !interfaceValidationFunction( value ) ) {
           interfaceIsValid = false;
         }
+
       }
 
       return interfaceIsValid;
     }
 
 
+    /*
+      Configurate is object
+    */
     var is = {
       number: isNumber,
       string: isString,
@@ -51,14 +72,19 @@
       undefined: isUndefined,
       NaN: isNaN,
       array: isArray,
+      object: isObject,
+      finite: isFinite
     }
 
-    // прокидываем переменные в глабальные данные
+
+    /*
+      Global variable define
+    */
     window.is = typeof window.is === 'undefined' ? is : console.warn('window.is reserved plese redefine Vally.is in new variable')
-    window.Vally = {
+    window.Valli = {
       version: '0.0.1',
       is: is,
-      validate: validateInterface;
+      validate: validateInterface,
     }
   })
 })( window )

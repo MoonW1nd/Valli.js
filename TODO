@@ -1,6 +1,7 @@
 Todo:
   develop:
     ✔ Add first simple realization @done(18-05-15 23:33)
+    ✔ Add simple first realization requre field @done(18-05-19 15:15)
     types for validation:
       ✔ Number @done(18-05-19 10:42)
       ✔ String @done(18-05-19 10:42)
