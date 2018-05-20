@@ -9,15 +9,19 @@ Todo:
       ✔ Undefined @done(18-05-19 10:42)
       ✔ Array @done(18-05-19 10:46)
       ☐ Object
-      ☐ Finite
+      ✔ Finite @done(18-05-19 15:19)
       ☐ Int
       ☐ Float
       ☐ Null
       ✔ NaN @done(18-05-19 10:42)
       ☐ Symbol
+      ☐ DOMNode
+      ☐ jQuery
+      ☐ Function
 
   infrastructure:
+    ☐ add Node supports
     ☐ add js linter
     ☐ add babel
-    ☐ add Jest or Mocha for TDD develop
+    ✔ add Jest or Mocha for TDD develop @done(18-05-19 23:38)
     ☐ add precommit hooks
