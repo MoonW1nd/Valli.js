@@ -1,1 +1,94 @@
-!function(t){var n={};function r(o){if(n[o])return n[o].exports;var e=n[o]={i:o,l:!1,exports:{}};return t[o].call(e.exports,e,e.exports,r),e.l=!0,e.exports}r.m=t,r.c=n,r.d=function(t,n,o){r.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},r.r=function(t){Object.defineProperty(t,"__esModule",{value:!0})},r.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(n,"a",n),n},r.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},r.p="/",r(r.s=1)}([function(t,n,r){"use strict";var o,e="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};o=function(){var t=function(t){return"[object Undefined]"===toString.call(t)},n=function(t){return Object(t)===t};n.required=function(r){if(t(r))throw new Error("filde requre by defined");return n(r)};var r={number:function(t){return"[object Number]"===toString.call(t)},string:function(t){return"[object String]"===toString.call(t)},bool:function(t){return"[object Boolean]"===toString.call(t)},undefined:t,nan:function(t){return t!=t},null:function(t){return null===t},array:function(t){return"[object Array]"===toString.call(t)},object:n,finite:isFinite,date:function(t){return"[object Date]"===toString.call(t)},function:function(t){return"[object Function]"===toString.call(t)}},o={version:"0.0.1",is:r,validate:function(t,n){var r=!0;return n.keys().forEach(function(o){(0,n[o])(t[o])||(r=!1)}),r}};return t(void 0)||((void 0).is=r,(void 0).Valli=o),o},"object"===e(n)?t.exports=o():o()},function(t,n,r){t.exports=r(0)}]);
+((root, libraryModule) => {
+  if (typeof exports === 'object') {
+    // Node for Jest testing
+    module.exports = libraryModule();
+  } else {
+    // Browser globals (root is self)
+    libraryModule();
+  }
+})(this, () => {
+  /*
+  *  Check types functions
+  */
+  const isNumber = value => toString.call(value) === '[object Number]' && value === value // eslint-disable-line
+  const isString = value => toString.call(value) === '[object String]';
+  const isBoolean = value => toString.call(value) === '[object Boolean]';
+  const isUndefined = value => toString.call(value) === '[object Undefined]';
+  const isArray = value => toString.call(value) === '[object Array]';
+  const isObject = value => Object(value) === value;
+  const isDate = value => toString.call(value) === '[object Date]';
+  const isFunction = value => toString.call(value) === '[object Function]';
+  const isNaN = value => value !== value; // eslint-disable-line
+  const isNull = value => value === null;
+
+
+  /*
+  *  Implementation requred field
+  */
+  isObject.required = (value) => {
+    if (isUndefined(value)) {
+      throw new Error('filde requre by defined');
+    } else {
+      return isObject(value);
+    }
+  };
+
+
+  /*
+    * Validate interface function
+    */
+  const validateInterface = (options, optionsInterface) => {
+    let interfaceIsValid = true;
+
+    const interfaceProps = optionsInterface.keys();
+
+    interfaceProps.forEach((property) => {
+      const interfaceValidationFunction = optionsInterface[property];
+      const value = options[property];
+
+      if (!interfaceValidationFunction(value)) {
+        interfaceIsValid = false;
+      }
+    });
+
+    return interfaceIsValid;
+  };
+
+
+  /*
+      Configurate is object
+    */
+  const is = {
+    number: isNumber,
+    string: isString,
+    bool: isBoolean,
+    undefined: isUndefined,
+    nan: isNaN,
+    null: isNull,
+    array: isArray,
+    object: isObject,
+    finite: isFinite, // eslint-disable-line
+    date: isDate,
+    function: isFunction,
+  };
+
+  const Valli = {
+    version: '0.0.1',
+    is,
+    validate: validateInterface,
+  };
+
+
+  /*
+  Global variable define
+  */
+  if (!isUndefined(this)) {
+    this.is = is;
+    this.Valli = Valli;
+  }
+  // is.function = isFunction;
+
+  // this.Valli = Valli;
+
+  return Valli;
+});

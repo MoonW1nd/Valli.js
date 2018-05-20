@@ -6,16 +6,14 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname),
-    filename: 'Valli.js',
+    filename: 'Valli.min.js',
     publicPath: '/',
   },
   module: {
-    rules: [
-      {
-        test: /\.js|\.jsx/,
-        use: ['babel-loader'],
-        include: path.join(__dirname, 'src'),
-      },
-    ],
+    rules: {
+      test: /\.js|\.jsx/,
+      use: ['babel-loader'],
+      include: path.join(__dirname, 'src'),
+    },
   },
 };

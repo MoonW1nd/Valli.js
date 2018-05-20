@@ -20,7 +20,7 @@ Todo:
       ☐ Function
 
   infrastructure:
-    ☐ add Node supports
+    ☐ add Node supports in minify version
     ☐ add js linter
     ☐ add babel
     ✔ add Jest or Mocha for TDD develop @done(18-05-19 23:38)
