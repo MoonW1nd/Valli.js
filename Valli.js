@@ -3,12 +3,11 @@
     // Node for Jest testing
     module.exports = libraryModule();
   } else {
-    // Browser globals (root is self)
     libraryModule();
   }
 })(this, () => {
   /*
-  *  Check types functions
+    Check types functions
   */
   const isNumber = value => toString.call(value) === '[object Number]' && value === value // eslint-disable-line
   const isString = value => toString.call(value) === '[object String]';
@@ -23,28 +22,22 @@
 
 
   /*
-  *  Implementation requred field
+    Validate interface function
   */
-  isObject.required = (value) => {
-    if (isUndefined(value)) {
-      throw new Error('filde requre by defined');
-    } else {
-      return isObject(value);
-    }
-  };
-
-
-  /*
-    * Validate interface function
-    */
-  const validateInterface = (options, optionsInterface) => {
+  function validateInterface(options, optionsInterface) {
     let interfaceIsValid = true;
 
-    const interfaceProps = optionsInterface.keys();
+    const interfaceProps = Object.keys(optionsInterface);
 
     interfaceProps.forEach((property) => {
       const interfaceValidationFunction = optionsInterface[property];
       const value = options[property];
+
+      if (interfaceValidationFunction.name === 'shape') {
+        if (!interfaceValidationFunction(value)) {
+          interfaceIsValid = false;
+        }
+      }
 
       if (!interfaceValidationFunction(value)) {
         interfaceIsValid = false;
@@ -52,12 +45,21 @@
     });
 
     return interfaceIsValid;
-  };
+  }
 
+
+  function shape(shapeInterface) {
+    return (value) => {
+      if (isObject(shapeInterface)) {
+        return validateInterface(value, shapeInterface);
+      }
+      return false;
+    };
+  }
 
   /*
-      Configurate is object
-    */
+    Configurate is object
+  */
   const is = {
     number: isNumber,
     string: isString,
@@ -70,7 +72,23 @@
     finite: isFinite, // eslint-disable-line
     date: isDate,
     function: isFunction,
+    shape,
   };
+
+
+  /*
+    Implementation requred field
+  */
+  Object.keys(is).forEach((property) => {
+    is[property].required = (value) => {
+      if (isUndefined(value)) {
+        throw new Error(`${value} must be ${property}`);
+      } else {
+        return is[property](value);
+      }
+    };
+  });
+
 
   const Valli = {
     version: '0.0.1',
@@ -86,9 +104,6 @@
     this.is = is;
     this.Valli = Valli;
   }
-  // is.function = isFunction;
-
-  // this.Valli = Valli;
 
   return Valli;
 });

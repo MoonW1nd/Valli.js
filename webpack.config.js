@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/index.js',
+    './Valli.js',
   ],
   output: {
-    path: path.join(__dirname),
+    path: path.join(__dirname, '/'),
     filename: 'Valli.min.js',
     publicPath: '/',
   },
@@ -13,7 +13,6 @@ module.exports = {
     rules: {
       test: /\.js|\.jsx/,
       use: ['babel-loader'],
-      include: path.join(__dirname, 'src'),
     },
   },
 };
