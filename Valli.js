@@ -77,6 +77,31 @@
 
 
   /*
+    Implementation of functions
+    Временная заглушка
+  */
+  is.array.of = {
+    numbers: isNumber,
+  };
+
+
+  /*
+    Implementation of functions
+  */
+  is.array.oneOf = arrayTypes => (array) => {
+    let interfaceIsValid = true;
+
+    array.forEach((value) => {
+      arrayTypes.forEach((type) => {
+        if (!is[type](value)) interfaceIsValid = false;
+      });
+    });
+
+    return interfaceIsValid;
+  };
+
+
+  /*
     Implementation requred field
   */
   Object.keys(is).forEach((property) => {
