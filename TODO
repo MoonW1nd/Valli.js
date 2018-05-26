@@ -3,8 +3,11 @@ Todo:
   develop:
     ✔ Add first simple realization @done(18-05-15 23:33)
     ✔ Add simple first realization requre field @done(18-05-19 15:15)
-    ☐ Add correct error log
     ✔ Add Shape implementation @done(18-05-26 15:10)
+    ☐ Add correct error log
+    ☐ Add link for documentation in erro message
+    ✔ @bug fix shape behabviuor on not require situation @done(18-05-26 20:01)
+    ☐ fix if shape is set when, require paremeters must be processed
 
     types for validation:
       ✔ Number @done(18-05-19 10:42)
@@ -14,14 +17,19 @@ Todo:
       ✔ Array @done(18-05-19 10:46)
       ✔ Object @done(18-05-26 15:10)
       ✔ Finite @done(18-05-19 15:19)
-      ☐ Int
       ✔ Float @done(18-05-26 15:10)
       ✔ Null @done(18-05-26 15:10)
       ✔ NaN @done(18-05-19 10:42)
+      ☐ Int
       ☐ Symbol
       ☐ DOMNode
       ☐ jQuery
       ☐ Function
+
+    others function:
+      ✔ isEmpty @done(18-05-26 20:08)
+      ☐ all
+      ☐ some
 
     test:
       ☐ shape implementation

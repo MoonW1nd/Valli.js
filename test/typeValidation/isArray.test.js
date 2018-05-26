@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { is } = require('../Valli.js');
+const { is } = require('../../Valli.js');
 
 
 describe('isArray type check', () => {

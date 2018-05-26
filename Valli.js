@@ -20,6 +20,15 @@
   const isNaN = value => value !== value; // eslint-disable-line
   const isNull = value => value === null;
 
+  const isEmpty = (value) => {
+    if (isObject(value)) {
+      const { length } = Object.keys(value);
+      if (length === 0) return true;
+      return false;
+    }
+    return value === '';
+  };
+
 
   /*
     Validate interface function
@@ -27,29 +36,32 @@
   function validateInterface(options, optionsInterface) {
     let interfaceIsValid = true;
 
+    // if (!isUndefined(options) && !isEmpty(options)) {
     const interfaceProps = Object.keys(optionsInterface);
 
     interfaceProps.forEach((property) => {
       const interfaceValidationFunction = optionsInterface[property];
       const value = options[property];
 
-      if (interfaceValidationFunction.name === 'shape') {
-        if (!interfaceValidationFunction(value)) {
-          interfaceIsValid = false;
-        }
+      if (!isFunction(interfaceValidationFunction)) {
+        throw TypeError(`[Valli.js]: interface for property ${property} not correct define.`);
       }
 
-      if (!interfaceValidationFunction(value)) {
-        interfaceIsValid = false;
+      // console.log(interfaceValidationFunction.name);
+      if (property in options || interfaceValidationFunction.name === 'required') {
+        if (!interfaceValidationFunction(value)) interfaceIsValid = false;
       }
     });
+    // }
 
     return interfaceIsValid;
   }
 
 
-  function shape(shapeInterface) {
+  function shape(shapeInterface, isRequred = false) {
     return (value) => {
+      if (isRequred && !isObject(value)) return false;
+
       if (isObject(shapeInterface)) {
         return validateInterface(value, shapeInterface);
       }
@@ -73,6 +85,7 @@
     finite: isFinite, // eslint-disable-line
     date: isDate,
     function: isFunction,
+    empty: isEmpty,
     shape,
   };
 
@@ -106,13 +119,17 @@
     Implementation requred field
   */
   Object.keys(is).forEach((property) => {
-    is[property].required = (value) => {
-      if (isUndefined(value)) {
-        throw new Error(`${value} must be ${property}`);
-      } else {
+    if (property === 'shape') {
+      is[property].required = value => is[property](value, true);
+    } else {
+      is[property].required = function required(value) {
+        if (isUndefined(value)) {
+          // throw new Error(`${value} must be ${property}`);
+          return false;
+        }
         return is[property](value);
-      }
-    };
+      };
+    }
   });
 
 
