@@ -3,7 +3,7 @@ const { is } = require('../Valli.js');
 
 
 describe('isString type check', () => {
-  const correctTypes = ['30', 'dfsdhfsdf', 'NaN', 'undefined', '30fdkdjfd', 'true', 'flase'];
+  const correctTypes = ['30', 'dfsdhfsdf', 'NaN', 'undefined', '30fdkdjfd', 'true', 'flase', new String()]; //eslint-disable-line
   const wrongTypes =
     [30, true, false, undefined, [], {}, new Date(), null, NaN, Infinity, -Infinity, 0, -0];
   correctTypes.forEach((value) => {

@@ -3,7 +3,7 @@ const { is } = require('../Valli.js');
 
 
 describe('isBoolean type check', () => {
-  const correctTypes = [true, false];
+  const correctTypes = [true, false, new Boolean()];// eslint-disable-line
   const wrongTypes = [30, 0, 1, Infinity, -Infinity, '', 'true', 'false', undefined, [], {}, new Date(), null];
   correctTypes.forEach((value) => {
     test(`${value} must be equal a boolean type`, () => {
