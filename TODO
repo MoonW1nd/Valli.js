@@ -1,9 +1,10 @@
 Todo:
+
   develop:
     ✔ Add first simple realization @done(18-05-15 23:33)
     ✔ Add simple first realization requre field @done(18-05-19 15:15)
     ☐ Add correct error log
-    ☐ Add Shape implementation
+    ✔ Add Shape implementation @done(18-05-26 15:10)
 
     types for validation:
       ✔ Number @done(18-05-19 10:42)
@@ -11,20 +12,27 @@ Todo:
       ✔ Boolean @done(18-05-19 10:42)
       ✔ Undefined @done(18-05-19 10:42)
       ✔ Array @done(18-05-19 10:46)
-      ☐ Object
+      ✔ Object @done(18-05-26 15:10)
       ✔ Finite @done(18-05-19 15:19)
       ☐ Int
-      ☐ Float
-      ☐ Null
+      ✔ Float @done(18-05-26 15:10)
+      ✔ Null @done(18-05-26 15:10)
       ✔ NaN @done(18-05-19 10:42)
       ☐ Symbol
       ☐ DOMNode
       ☐ jQuery
       ☐ Function
 
+    test:
+      ☐ shape implementation
+      ☐ array.oneOf implementation
+      ☐ array.of implementation
+      ☐ array.of.type implementation
+      ☐ is.oneOf imlementation
+
   infrastructure:
     ☐ add Node supports in minify version
-    ☐ add js linter
+    ✔ add js linter @done(18-05-26 15:10)
     ☐ add babel
     ✔ add Jest or Mocha for TDD develop @done(18-05-19 23:38)
-    ☐ add precommit hooks
+    ✔ add precommit hooks @done(18-05-26 15:11)
