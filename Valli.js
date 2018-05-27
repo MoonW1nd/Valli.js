@@ -47,7 +47,7 @@
         throw TypeError(`[Valli.js]: interface for property ${property} not correct define.`);
       }
 
-      // console.log(interfaceValidationFunction.name);
+
       if (property in options || interfaceValidationFunction.name === 'required') {
         if (!interfaceValidationFunction(value)) interfaceIsValid = false;
       }
@@ -59,9 +59,15 @@
 
 
   function shape(shapeInterface, isRequred = false) {
-    return (value) => {
-      if (isRequred && !isObject(value)) return false;
+    if (isRequred) {
+      return function required(value) {
+        if (!isObject(value)) return false;
+        if (isObject(shapeInterface)) return validateInterface(value, shapeInterface);
+        return false;
+      };
+    }
 
+    return (value) => {
       if (isObject(shapeInterface)) {
         return validateInterface(value, shapeInterface);
       }

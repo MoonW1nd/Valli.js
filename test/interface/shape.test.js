@@ -2,7 +2,7 @@
 const { is, validate } = require('../../Valli.js');
 
 
-describe('isObject type check', () => {
+describe('is.shape', () => {
   const interfaceObject = {
     person: is.shape.required({
       name: is.string.required,
@@ -44,13 +44,13 @@ describe('isObject type check', () => {
   ];
 
   correctObjects.forEach((value) => {
-    test(`${value} must be equal object`, () => {
+    test(`${value} must be correct interface`, () => {
       expect(validate(value, interfaceObject)).toBe(true);
     });
   });
 
   wrongObjects.forEach((value) => {
-    it(`${value} must be not equal object type`, () => {
+    it(`${value} must be not correct interface`, () => {
       expect(validate(value, interfaceObject)).toBe(false);
     });
   });
