@@ -45,6 +45,8 @@
       ],
       "*.json": "jsonlint"
     },
-    "ignore": ["Valli.min.js"]
+    "ignore": [
+      "Valli.min.js"
+    ]
   }
 }

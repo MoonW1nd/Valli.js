@@ -36,7 +36,6 @@
   function validateInterface(options, optionsInterface) {
     let interfaceIsValid = true;
 
-    // if (!isUndefined(options) && !isEmpty(options)) {
     const interfaceProps = Object.keys(optionsInterface);
 
     interfaceProps.forEach((property) => {
@@ -52,7 +51,6 @@
         if (!interfaceValidationFunction(value)) interfaceIsValid = false;
       }
     });
-    // }
 
     return interfaceIsValid;
   }
@@ -112,9 +110,12 @@
     let interfaceIsValid = true;
 
     array.forEach((value) => {
+      let validValue = false;
       arrayTypes.forEach((type) => {
-        if (!is[type](value)) interfaceIsValid = false;
+        if (is[type](value)) validValue = true;
       });
+
+      if (!validValue) interfaceIsValid = false;
     });
 
     return interfaceIsValid;

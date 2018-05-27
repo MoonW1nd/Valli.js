@@ -7,6 +7,9 @@ describe('is.shape', () => {
     person: is.shape.required({
       name: is.string.required,
       age: is.number,
+      loveFilms: is.shape({
+        comedy: is.string,
+      }),
     }),
   };
 
@@ -28,6 +31,14 @@ describe('is.shape', () => {
         age: 1,
       },
     },
+    {
+      person: {
+        name: 'dfdsd',
+        loveFilms: {
+          comedy: 'Troll face',
+        },
+      },
+    },
   ];
 
   const wrongObjects = [
@@ -41,16 +52,24 @@ describe('is.shape', () => {
     {
       person: {},
     },
+    {
+      person: {
+        name: 'dfdsd',
+        loveFilms: {
+          comedy: 1,
+        },
+      },
+    },
   ];
 
-  correctObjects.forEach((value) => {
-    test(`${value} must be correct interface`, () => {
+  correctObjects.forEach((value, i) => {
+    test(`Object #${i}: must be correct interface`, () => {
       expect(validate(value, interfaceObject)).toBe(true);
     });
   });
 
-  wrongObjects.forEach((value) => {
-    it(`${value} must be not correct interface`, () => {
+  wrongObjects.forEach((value, i) => {
+    it(`Object #${i}: must be not correct interface`, () => {
       expect(validate(value, interfaceObject)).toBe(false);
     });
   });
