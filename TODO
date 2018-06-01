@@ -25,6 +25,7 @@ Todo:
       ☐ DOMNode
       ☐ jQuery
       ☐ Function
+      ☐ Instance
 
     others function:
       ✔ isEmpty @done(18-05-26 20:08)
@@ -37,6 +38,7 @@ Todo:
       ☐ array.of implementation
       ☐ array.of.type implementation
       ☐ is.oneOf imlementation
+      ☐ is.instance.oneOf imlementation
 
   infrastructure:
     ☐ add Node supports in minify version
