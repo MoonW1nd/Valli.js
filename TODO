@@ -8,6 +8,8 @@ Todo:
     ☐ Add link for documentation in error message
     ✔ @bug fix shape behabviuor on not require situation @done(18-05-26 20:01)
     ✔ fix if shape is set when, require paremeters must be processed @done(18-05-27 21:21)
+    ✔ implementation set types in oneOf as: array of sting, array of functions, arguments string, arguments function @done(18-06-01 22:29)
+    ☐ add errors for not correct set parameters in oneOf functions
 
     types for validation:
       ✔ Number @done(18-05-19 10:42)

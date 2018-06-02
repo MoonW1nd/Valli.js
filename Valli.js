@@ -106,19 +106,47 @@
   /*
     Implementation of functions
   */
-  is.array.oneOf = arrayTypes => (array) => {
-    let interfaceIsValid = true;
+  is.array.oneOf = (...args) => {
+    let arrayTypes;
+    switch (true) {
+      case isArray(args[0]):
+        [arrayTypes] = args;
+        break;
 
-    array.forEach((value) => {
-      let validValue = false;
-      arrayTypes.forEach((type) => {
-        if (is[type](value)) validValue = true;
+      case isString(args[0]) || isFunction(args[0]):
+        arrayTypes = args;
+        break;
+
+      default:
+        break;
+    }
+
+    return (array) => {
+      let interfaceIsValid = true;
+
+      array.forEach((value) => {
+        let validValue = false;
+
+        arrayTypes.forEach((type) => {
+          switch (true) {
+            case isString(type):
+              if (is[type](value)) validValue = true;
+              break;
+
+            case isFunction(type):
+              if (type(value)) validValue = true;
+              break;
+
+            default:
+              throw TypeError('Not correct type paremeter in oneOf construction');
+          }
+        });
+
+        if (!validValue) interfaceIsValid = false;
       });
 
-      if (!validValue) interfaceIsValid = false;
-    });
-
-    return interfaceIsValid;
+      return interfaceIsValid;
+    };
   };
 
 
