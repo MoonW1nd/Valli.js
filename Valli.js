@@ -74,6 +74,19 @@
   }
 
 
+  function instance(prototypeObject, isRequred = false) {
+    if (isRequred) {
+      return function required(value) {
+        if (isUndefined(value)) return false;
+        if (isObject(value)) return value instanceof prototypeObject;
+        return false;
+      };
+    }
+
+    return value => value instanceof prototypeObject;
+  }
+
+
   /*
     Configurate is object
   */
@@ -91,6 +104,7 @@
     function: isFunction,
     empty: isEmpty,
     shape,
+    instance,
   };
 
 
@@ -154,7 +168,7 @@
     Implementation requred field
   */
   Object.keys(is).forEach((property) => {
-    if (property === 'shape') {
+    if (property === 'shape' || property === 'instance') {
       is[property].required = value => is[property](value, true);
     } else {
       is[property].required = function required(value) {

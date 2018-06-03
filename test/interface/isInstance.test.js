@@ -26,13 +26,19 @@ const wrongObjects = [
     {
       testInstance: undefined,
     },
+    {
+      testInstance: 'Hi',
+    },
+    {
+      testInstance: 1,
+    },
   ],
 ];
 
 instancesObject.forEach((instanceObject, indexInstance) => {
   describe(`oneOf() types: object instance #${indexInstance}`, () => {
     const interfaceObject = {
-      testInstance: is.instance(instanceObject),
+      testInstance: is.instance.required(instanceObject),
     };
 
     correctObjects[indexInstance].forEach((value, i) => {

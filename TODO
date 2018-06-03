@@ -27,7 +27,7 @@ Todo:
       ☐ DOMNode
       ☐ jQuery
       ☐ Function
-      ☐ Instance
+      ✔ Instance @done(18-06-03 20:54)
 
     others function:
       ✔ isEmpty @done(18-05-26 20:08)
