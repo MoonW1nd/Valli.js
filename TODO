@@ -48,3 +48,15 @@ Todo:
     ☐ add babel
     ✔ add Jest or Mocha for TDD develop @done(18-05-19 23:38)
     ✔ add precommit hooks @done(18-05-26 15:11)
+
+  documentation:
+    ✔ add README.md @done(18-06-03 21:31)
+    ☐ create simple and fully structure for write documentation
+    ☐ add description
+    ☐ add quick start
+    ☐ add description validation options
+    ☐ add description shape function (see PropTypes doc)
+    ☐ add description arrays validation
+    ☐ add description for create custom validation function
+    ☐ add contribution.md
+    ☐ create english version
