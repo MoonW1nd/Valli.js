@@ -1,4 +1,4 @@
-# Valli.js (в разарботке | &alpha;-версия)
+# Valli.js (в разработке | &alpha;-версия)
 
 ## Содержание
 - [Описание](#Описание)
@@ -6,10 +6,44 @@
 - [Описание типов](#Описание-типов)
 
 ## Описание
-Небольшая библиотека для описания и проверки типов данных в объектах. Вдохнавленная библиотеками `is.js` и `PropTypes`.
+Небольшая библиотека для описания и проверки типов данных в объектах. Вдохновленная библиотеками `is.js` и `PropTypes`.
 
 ## Quick start
-> **Раздел в разработке**
+Подключение в браузере:
+```html
+<script src="path/to/yourCopyOf/Valli.js"></script>
+```
+Node.js:
+```javascript
+const Valli = require('path/to/yourCopyOf/Valli.js');
+```
+> Пока не опубликован в npm
+
+Пример использования:
+```javascript
+const { is, validate } = require('Valli.js');
+
+// описание интерфейса объекта
+const interfaceUser = {
+  name: is.string.required,
+  age: is.number,
+}
+
+const correctUser = {
+  name: 'Vasya',
+  age: 32,
+}
+
+validate(correctUser, interfaceUser) // -> true
+
+const wrongUser = {
+  name: 'Vasya',
+  age: '?',
+}
+
+validate(wrongUser, interfaceUser) // -> false
+```
+
 ## Описание типов
 Описание интерфейса производится в виде js объекта с описанием типа значений для каждого свойства.
 
@@ -18,8 +52,8 @@
 const { is } = require('Valli.js');
 
 const interfaceUser = {
-  name: is.srting.requred,
-  age: is.number.requreed,
+  name: is.string.required,
+  age: is.number,
   hobby: is.array.of.string,
   family: is.shape({
     children: is.array.of.string
@@ -28,10 +62,10 @@ const interfaceUser = {
 }
 ```
  ### Описание валидации примитивных типов:
- 
- |функиция|описание|
+
+ |функция|описание|
  |:--|:--|
- |`is.stirng`| проверяет на тип `string` |
+ |`is.string`| проверяет на тип `string` |
  |`is.number`| проверяет на тип `number` |
  |`is.bool`| проверяет на тип `boolean` |
  |`is.null`| проверяет на тип `null` |
@@ -41,9 +75,9 @@ const interfaceUser = {
 
 ### Описание валидации объектных типов:
 
- |функиция|описание|
+ |функция|описание|
  |:--|:--|
  |`is.function`| проверяет на наличие в значении функции |
- |`is.date`| проверяет на наличие в занчении Даты|
- |`is.array`| проверяет на наличие в занчении массива|
+ |`is.date`| проверяет на наличие в значении Даты|
+ |`is.array`| проверяет на наличие в значении массива|
 

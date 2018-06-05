@@ -56,8 +56,8 @@
   }
 
 
-  function shape(shapeInterface, isRequred = false) {
-    if (isRequred) {
+  function shape(shapeInterface, isRequired = false) {
+    if (isRequired) {
       return function required(value) {
         if (!isObject(value)) return false;
         if (isObject(shapeInterface)) return validateInterface(value, shapeInterface);
@@ -74,8 +74,8 @@
   }
 
 
-  function instance(prototypeObject, isRequred = false) {
-    if (isRequred) {
+  function instance(prototypeObject, isRequired = false) {
+    if (isRequired) {
       return function required(value) {
         if (isUndefined(value)) return false;
         if (isObject(value)) return value instanceof prototypeObject;
@@ -152,7 +152,7 @@
               break;
 
             default:
-              throw TypeError('Not correct type paremeter in oneOf construction');
+              throw TypeError('Not correct type parameter in oneOf construction');
           }
         });
 
@@ -165,7 +165,7 @@
 
 
   /*
-    Implementation requred field
+    Implementation required field
   */
   Object.keys(is).forEach((property) => {
     if (property === 'shape' || property === 'instance') {
