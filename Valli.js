@@ -111,10 +111,20 @@
   /*
     Implementation of functions
     Временная заглушка
-  */
-  is.array.of = {
-    numbers: isNumber,
-  };
+  // */
+  is.array.of = {};
+  Object.keys(is).forEach((property) => {
+    is.array.of[property] = (array) => {
+      if (!isArray(array)) return false;
+
+      let isCorrect = true;
+      array.forEach((value) => {
+        if (!is[property](value)) isCorrect = false;
+      });
+
+      return isCorrect;
+    };
+  });
 
 
   /*
