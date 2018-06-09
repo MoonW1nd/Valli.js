@@ -11,6 +11,9 @@ const interfaces = [
       testValue: is.string,
     }),
   },
+  {
+    testValue: is.array.of.instance(Object),
+  },
 ];
 
 // console.log(is.array.of.shape({
@@ -40,6 +43,11 @@ const correctObjects = [
           testValue: 'teur',
         },
       ],
+    },
+  ],
+  [
+    {
+      testValue: [{}, [], { x: 'testValue' }],
     },
   ],
 ];
@@ -75,6 +83,11 @@ const wrongObjects = [
           testValue: 1,
         },
       ],
+    },
+  ],
+  [
+    {
+      testValue: [{}, undefined],
     },
   ],
 ];

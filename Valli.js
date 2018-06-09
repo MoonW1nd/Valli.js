@@ -43,6 +43,7 @@
       const value = options[property];
 
       if (!isFunction(interfaceValidationFunction)) {
+        debugger;// eslint-disable-line
         throw TypeError(`[Valli.js]: interface for property ${property} not correct define.`);
       }
 
@@ -109,23 +110,27 @@
 
 
   /*
-    Implementation of functions
-    Временная заглушка
-  // */
+    Implementation array of functions
+  */
   is.array.of = {};
+  const isValidArray = validationFunction => (array) => {
+    if (!isArray(array)) return false;
+
+    let isCorrect = true;
+    array.forEach((value) => {
+      if (!validationFunction(value)) isCorrect = false;
+    });
+
+    return isCorrect;
+  };
+
   Object.keys(is).forEach((property) => {
-    is.array.of[property] = (array) => {
-      if (!isArray(array)) return false;
-
-      let isCorrect = true;
-      array.forEach((value) => {
-        if (!is[property](value)) isCorrect = false;
-      });
-
-      return isCorrect;
-    };
+    if (property === 'shape' || property === 'instance') {
+      is.array.of[property] = objectInterface => isValidArray(is[property](objectInterface));
+    } else {
+      is.array.of[property] = isValidArray(is[property]);
+    }
   });
-
 
   /*
     Implementation of functions
