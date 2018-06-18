@@ -21,7 +21,7 @@ const Valli = require('path/to/yourCopyOf/Valli.js');
 
 Пример использования:
 ```javascript
-const { is, validate } = require('Valli.js');
+const { is, checkTypes } = require('Valli.js');
 
 // описание интерфейса объекта
 const interfaceUser = {
@@ -34,14 +34,14 @@ const correctUser = {
   age: 32,
 }
 
-validate(correctUser, interfaceUser) // -> true
+checkTypes(interfaceUser, correctUser) // -> true
 
 const wrongUser = {
   name: 'Vasya',
   age: '?',
 }
 
-validate(wrongUser, interfaceUser) // -> false
+checkTypes(interfaceUser, wrongUser) // -> false
 ```
 
 ## Описание типов

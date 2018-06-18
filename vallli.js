@@ -9,7 +9,7 @@
   /*
     Check types functions
   */
-  const isNumber = value => toString.call(value) === '[object Number]' && value === value // eslint-disable-line
+  const isNumber = value => toString.call(value) === '[object Number]';
   const isString = value => toString.call(value) === '[object String]';
   const isBoolean = value => toString.call(value) === '[object Boolean]';
   const isUndefined = value => toString.call(value) === '[object Undefined]';
@@ -31,29 +31,28 @@
 
 
   /*
-    Validate interface function
+    checkTypes interface function
   */
-  function validateInterface(options, optionsInterface) {
-    let interfaceIsValid = true;
+  function checkTypes(optionsInterface, options) {
+    let isCorrect = true;
 
     const interfaceProps = Object.keys(optionsInterface);
 
     interfaceProps.forEach((property) => {
-      const interfaceValidationFunction = optionsInterface[property];
+      const checkTypeFunction = optionsInterface[property];
       const value = options[property];
 
-      if (!isFunction(interfaceValidationFunction)) {
-        debugger;// eslint-disable-line
+      if (!isFunction(checkTypeFunction)) {
         throw TypeError(`[Valli.js]: interface for property ${property} not correct define.`);
       }
 
 
-      if (property in options || interfaceValidationFunction.name === 'required') {
-        if (!interfaceValidationFunction(value)) interfaceIsValid = false;
+      if (property in options || checkTypeFunction.name === 'required') {
+        if (!checkTypeFunction(value)) isCorrect = false;
       }
     });
 
-    return interfaceIsValid;
+    return isCorrect;
   }
 
 
@@ -61,14 +60,14 @@
     if (isRequired) {
       return function required(value) {
         if (!isObject(value)) return false;
-        if (isObject(shapeInterface)) return validateInterface(value, shapeInterface);
+        if (isObject(shapeInterface)) return checkTypes(shapeInterface, value);
         return false;
       };
     }
 
     return (value) => {
       if (isObject(shapeInterface)) {
-        return validateInterface(value, shapeInterface);
+        return checkTypes(shapeInterface, value);
       }
       return false;
     };
@@ -147,11 +146,12 @@
         break;
 
       default:
+        // ! Вспомнить почему здесь нет дейсвий по умолчанию
         break;
     }
 
     return (array) => {
-      let interfaceIsValid = true;
+      let isCorrect = true;
 
       array.forEach((value) => {
         let validValue = false;
@@ -171,10 +171,10 @@
           }
         });
 
-        if (!validValue) interfaceIsValid = false;
+        if (!validValue) isCorrect = false;
       });
 
-      return interfaceIsValid;
+      return isCorrect;
     };
   };
 
@@ -197,20 +197,18 @@
   });
 
 
-  const Valli = {
-    version: '0.0.1',
-    is,
-    validate: validateInterface,
-  };
+  const valli = types => object => checkTypes(types, object);
 
+  valli.version = '0.0.1';
+  valli.is = is;
+  valli.checkTypes = checkTypes;
 
   /*
   Global variable define
   */
   if (!isUndefined(this)) {
-    this.is = is;
-    this.Valli = Valli;
+    this.valli = valli;
   }
 
-  return Valli;
+  return valli;
 });
