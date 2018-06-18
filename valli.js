@@ -43,7 +43,7 @@
       const value = options[property];
 
       if (!isFunction(checkTypeFunction)) {
-        throw TypeError(`[Valli.js]: interface for property ${property} not correct define.`);
+        throw TypeError(`[valli.js]: interface for property ${property} not correct define.`);
       }
 
 
@@ -146,7 +146,7 @@
         break;
 
       default:
-        // ! Вспомнить почему здесь нет дейсвий по умолчанию
+        // ! Вспомнить почему здесь нет действий по умолчанию
         break;
     }
 

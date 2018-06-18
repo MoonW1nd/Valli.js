@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { is, validate } = require('../../Valli.js');
+const { is, checkTypes } = require('../../valli');
 
 
 const instancesObject = [
@@ -43,13 +43,13 @@ instancesObject.forEach((instanceObject, indexInstance) => {
 
     correctObjects[indexInstance].forEach((value, i) => {
       test(`Object #${i}: must be correct interface`, () => {
-        expect(validate(value, interfaceObject)).toBe(true);
+        expect(checkTypes(interfaceObject, value)).toBe(true);
       });
     });
 
     wrongObjects[indexInstance].forEach((value, i) => {
       it(`Object #${i}: must be not correct interface`, () => {
-        expect(validate(value, interfaceObject)).toBe(false);
+        expect(checkTypes(interfaceObject, value)).toBe(false);
       });
     });
   });

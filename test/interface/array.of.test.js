@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-const { is, validate } = require('../../Valli.js');
+const { is, checkTypes } = require('../../valli');
+const valli = require('../../valli');
 
 
 const interfaces = [
@@ -96,13 +97,30 @@ interfaces.forEach((interfaceObject, indexInstance) => {
   describe(`array.of types: object instance #${indexInstance}`, () => {
     correctObjects[indexInstance].forEach((value, i) => {
       test(`Object #${i}: must be correct interface`, () => {
-        expect(validate(value, interfaceObject)).toBe(true);
+        expect(checkTypes(interfaceObject, value)).toBe(true);
       });
     });
 
     wrongObjects[indexInstance].forEach((value, i) => {
       it(`Object #${i}: must be not correct interface`, () => {
-        expect(validate(value, interfaceObject)).toBe(false);
+        expect(checkTypes(interfaceObject, value)).toBe(false);
+      });
+    });
+  });
+});
+
+interfaces.forEach((interfaceObject, indexInstance) => {
+  const isObjectInterface = valli(interfaceObject);
+  describe(`array.of types(currying, implementation): object instance #${indexInstance}`, () => {
+    correctObjects[indexInstance].forEach((value, i) => {
+      test(`Object #${i}: must be correct interface`, () => {
+        expect(isObjectInterface(value)).toBe(true);
+      });
+    });
+
+    wrongObjects[indexInstance].forEach((value, i) => {
+      it(`Object #${i}: must be not correct interface`, () => {
+        expect(isObjectInterface(value)).toBe(false);
       });
     });
   });
