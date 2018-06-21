@@ -11,17 +11,17 @@
 ## Quick start
 Подключение в браузере:
 ```html
-<script src="path/to/yourCopyOf/Valli.js"></script>
+<script src="path/to/yourCopyOf/valli.js"></script>
 ```
 Node.js:
 ```javascript
-const Valli = require('path/to/yourCopyOf/Valli.js');
+const Valli = require('path/to/yourCopyOf/valli.js');
 ```
 > Пока не опубликован в npm
 
 Пример использования:
 ```javascript
-const { is, checkTypes } = require('Valli.js');
+const { is, checkTypes, valli } = require('valli.js');
 
 // описание интерфейса объекта
 const interfaceUser = {
@@ -42,6 +42,13 @@ const wrongUser = {
 }
 
 checkTypes(interfaceUser, wrongUser) // -> false
+
+// `Можно создать функцию для проверки конкретног интерфейса
+// с помощью функции valli
+const isUser = valli(interfaceUser);
+
+isUser(correctUser) //-> true
+isUser(wrongUser) //-> false
 ```
 
 ## Описание типов
@@ -49,7 +56,7 @@ checkTypes(interfaceUser, wrongUser) // -> false
 
 Пример:
 ```javascript
-const { is } = require('Valli.js');
+const { is } = require('valli.js');
 
 const interfaceUser = {
   name: is.string.required,

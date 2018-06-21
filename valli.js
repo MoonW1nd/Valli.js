@@ -200,6 +200,7 @@
   const valli = types => object => checkTypes(types, object);
 
   valli.version = '0.0.1';
+  valli.valli = valli;
   valli.is = is;
   valli.checkTypes = checkTypes;
 
