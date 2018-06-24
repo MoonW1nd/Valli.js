@@ -34,8 +34,9 @@ Todo:
 
     others function:
       ✔ isEmpty @done(18-05-26 20:08)
-      ☐ all
-      ☐ some
+      ☐ `not` for all validation fanctions
+      ☐ `all`
+      ☐ `some`
 
     test:
       ✔ shape implementation @done(18-05-27 21:21)
