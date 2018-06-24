@@ -64,13 +64,13 @@ describe('is.shape', () => {
 
   correctObjects.forEach((value, i) => {
     test(`Object #${i}: must be correct interface`, () => {
-      expect(checkTypes(interfaceObject, value)).toBe(true);
+      expect(checkTypes(interfaceObject, value, false)).toBe(true);
     });
   });
 
   wrongObjects.forEach((value, i) => {
-    it(`Object #${i}: must be not correct interface`, () => {
-      expect(checkTypes(interfaceObject, value)).toBe(false);
+    test(`Object #${i}: must be not correct interface`, () => {
+      expect(checkTypes(interfaceObject, value, false)).toBe(false);
     });
   });
 });

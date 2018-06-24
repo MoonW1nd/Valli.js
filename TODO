@@ -12,7 +12,9 @@ Todo:
     ✔ implementation array.of for shape and instance @done(18-06-08 09:42)
     ☐ add errors for not correct set parameters in oneOf functions
     ☐ think over renaming API methods library
-    ☐ come up with
+    ☐ come up with set options for processing
+    ☐ create method crossbrowsing getFunctionName
+    ☐ resolve problem with JSON.Stringify (in error log object property with value undefined not image)
 
     types for validation:
       ✔ Number @done(18-05-19 10:42)

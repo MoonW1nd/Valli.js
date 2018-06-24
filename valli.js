@@ -33,22 +33,35 @@
   /*
     checkTypes interface function
   */
-  function checkTypes(optionsInterface, options) {
+  function checkTypes(objectInterface, object, isThrowError = true) {
     let isCorrect = true;
 
-    const interfaceProps = Object.keys(optionsInterface);
+    const interfaceProps = Object.keys(objectInterface);
 
     interfaceProps.forEach((property) => {
-      const checkTypeFunction = optionsInterface[property];
-      const value = options[property];
+      const checkTypeFunction = objectInterface[property];
+      const value = object[property];
 
       if (!isFunction(checkTypeFunction)) {
         throw TypeError(`[valli.js]: interface for property ${property} not correct define.`);
       }
 
 
-      if (property in options || checkTypeFunction.name === 'required') {
+      if (property in object || checkTypeFunction.name === 'required') {
         if (!checkTypeFunction(value)) isCorrect = false;
+      }
+
+      // generate errors block
+      if (isThrowError) {
+        const requiredPropsNotSet = checkTypeFunction.name === 'required' && !(property in object);
+
+        if (!isCorrect && !requiredPropsNotSet) {
+          throw Error(`[valli.js]: property "${property}" in object: ${JSON.stringify(object)} has not correct type`);
+        }
+
+        if (requiredPropsNotSet) {
+          throw Error(`[valli.js]: property "${property}" in object: ${JSON.stringify(object)} is required but not set`);
+        }
       }
     });
 
@@ -56,18 +69,18 @@
   }
 
 
-  function shape(shapeInterface, isRequired = false) {
+  function shape(shapeInterface, isThrowError = true, isRequired = false) {
     if (isRequired) {
       return function required(value) {
         if (!isObject(value)) return false;
-        if (isObject(shapeInterface)) return checkTypes(shapeInterface, value);
+        if (isObject(shapeInterface)) return checkTypes(shapeInterface, value, isThrowError);
         return false;
       };
     }
 
     return (value) => {
       if (isObject(shapeInterface)) {
-        return checkTypes(shapeInterface, value);
+        return checkTypes(shapeInterface, value, isThrowError);
       }
       return false;
     };
