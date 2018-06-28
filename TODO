@@ -48,6 +48,14 @@ Todo:
       ✔ is.oneOf imlementation @done(18-06-21 10:30)
       ☐ is.instance.oneOf imlementation
       ☐ valli method (binding interface)
+      ☐ add test for iternal function convertToText
+
+      Throw Error test:
+         ✔ oneOf @done(18-06-28 23:07)
+         ☐ isInstance
+         ☐ shape
+         ☐ valli
+         ☐ array.of
 
   infrastructure:
     ☐ add Node supports in minify version
@@ -58,7 +66,6 @@ Todo:
 
   documentation:
     ✔ add README.md @done(18-06-03 21:31)
-    ☐ create simple and fully structure for write documentation
     ☐ add description
     ☐ add quick start
     ☐ add description validation options

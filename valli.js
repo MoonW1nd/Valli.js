@@ -30,10 +30,54 @@
   };
 
 
+  function convertToText(value) {
+    // create an array that will later be joined into a string.
+    const string = [];
+
+    switch (true) {
+      case isObject(value) && !isArray(value): {
+        string.push('{ ');
+        const properties = Object.keys(value);
+        properties.forEach(property => string.push(property, ': ', convertToText(value[property]), ', '));
+        string.push('}');
+        break;
+      }
+
+      case isArray(value): {
+        string.push('[ ');
+        const properties = Object.keys(value);
+        properties.forEach(property => string.push(convertToText(value[property]), ', '));
+        string.push(']');
+        break;
+      }
+
+      case isFunction(value): {
+        string.push('[Function]');
+        break;
+      }
+
+      case isNaN(value): {
+        string.push('NaN');
+        break;
+      }
+
+      case isUndefined(value): {
+        string.push('undefined');
+        break;
+      }
+
+      default:
+        string.push(JSON.stringify(value));
+    }
+
+    return string.join('');
+  }
+
+
   /*
     checkTypes interface function
   */
-  function checkTypes(objectInterface, object, isThrowError = true) {
+  function checkTypes(objectInterface, object, isThrowError = false) {
     let isCorrect = true;
 
     const interfaceProps = Object.keys(objectInterface);
@@ -47,21 +91,16 @@
       }
 
 
-      if (property in object || checkTypeFunction.name === 'required') {
-        if (!checkTypeFunction(value)) isCorrect = false;
-      }
-
-      // generate errors block
-      if (isThrowError) {
-        const requiredPropsNotSet = checkTypeFunction.name === 'required' && !(property in object);
-
-        if (!isCorrect && !requiredPropsNotSet) {
-          throw Error(`[valli.js]: property "${property}" in object: ${JSON.stringify(object)} has not correct type`);
+      if (property in object) {
+        if (!checkTypeFunction(value)) {
+          isCorrect = false;
+          if (isThrowError) throw Error(`[valli.js]: property "${property}" in object: ${convertToText(object)} has not correct type`);
         }
-
-        if (requiredPropsNotSet) {
-          throw Error(`[valli.js]: property "${property}" in object: ${JSON.stringify(object)} is required but not set`);
-        }
+      } else if (checkTypeFunction.name === 'required') {
+        isCorrect = false;
+        if (isThrowError) throw Error(`[valli.js]: property "${property}" in object: ${convertToText(object)} is required but not set`);
+      } else {
+        // not need activity
       }
     });
 
@@ -69,7 +108,7 @@
   }
 
 
-  function shape(shapeInterface, isThrowError = true, isRequired = false) {
+  function shape(shapeInterface, isThrowError = false, isRequired = false) {
     if (isRequired) {
       return function required(value) {
         if (!isObject(value)) return false;
@@ -197,7 +236,7 @@
   */
   Object.keys(is).forEach((property) => {
     if (property === 'shape' || property === 'instance') {
-      is[property].required = value => is[property](value, true);
+      is[property].required = value => is[property](value, false, true);
     } else {
       is[property].required = function required(value) {
         if (isUndefined(value)) {

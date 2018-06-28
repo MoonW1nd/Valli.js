@@ -37,7 +37,7 @@ interfacesObject.forEach((interfaceObject, indexInterface) => {
 
     const wrongObjects = [
       {
-        persons: [1, 'dfksjfd', {}],
+        persons: [1, 'dfksjfd', {}, undefined, null, NaN],
       },
     ];
 
@@ -49,7 +49,14 @@ interfacesObject.forEach((interfaceObject, indexInterface) => {
 
     wrongObjects.forEach((value, i) => {
       it(`Object #${i}: must be not correct interface`, () => {
-        expect(checkTypes(interfaceObject, value, false)).toBe(false);
+        expect(checkTypes(interfaceObject, value)).toBe(false);
+      });
+    });
+
+    wrongObjects.forEach((value, i) => {
+      it(`Object #${i}: must be throw Error`, () => {
+        expect(() => checkTypes(interfaceObject, value, true)).toThrow();
+        // .toBe(false);
       });
     });
   });

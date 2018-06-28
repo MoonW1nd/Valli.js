@@ -97,13 +97,13 @@ interfaces.forEach((interfaceObject, indexInstance) => {
   describe(`array.of types: object instance #${indexInstance}`, () => {
     correctObjects[indexInstance].forEach((value, i) => {
       test(`Object #${i}: must be correct interface`, () => {
-        expect(checkTypes(interfaceObject, value, false)).toBe(true);
+        expect(checkTypes(interfaceObject, value)).toBe(true);
       });
     });
 
     wrongObjects[indexInstance].forEach((value, i) => {
       it(`Object #${i}: must be not correct interface`, () => {
-        expect(checkTypes(interfaceObject, value, false)).toBe(false);
+        expect(checkTypes(interfaceObject, value)).toBe(false);
       });
     });
   });
