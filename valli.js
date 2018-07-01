@@ -249,6 +249,20 @@
   });
 
 
+  /*
+    Implementation not field
+  */
+  is.not = {};
+  Object.keys(is).forEach((property) => {
+    if (property === 'shape' || property === 'instance') {
+      //! пока не понятно как должна проходить проверка в данном случае
+      // is.not[property] = () => value => !is[property](value, false, false);
+    } else {
+      is.not[property] = value => !is[property](value);
+    }
+  });
+
+
   const valli = types => object => checkTypes(types, object);
 
   valli.version = '0.0.1';
