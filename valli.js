@@ -75,6 +75,20 @@
 
 
   /*
+    set __valliMeta__
+  */
+  function setValliMeta(target, metaObject) {
+    const targetMeta = target.__valliMeta__;
+    if (targetMeta != null) {
+      if (isObject(targetMeta)) throw Error('Not correct meta');
+      Object.assign(targetMeta, metaObject);
+    } else {
+      target.__valliMeta__ = metaObject;
+    }
+  }
+
+
+  /*
     checkTypes interface function
   */
   function checkTypes(objectInterface, object, isThrowError = false) {
@@ -96,7 +110,7 @@
           isCorrect = false;
           if (isThrowError) throw Error(`[valli.js]: property "${property}" in object: ${convertToText(object)} has not correct type`);
         }
-      } else if (checkTypeFunction.name === 'required') {
+      } else if (checkTypeFunction.__valliMeta__ && checkTypeFunction.__valliMeta__.name === 'required') {
         isCorrect = false;
         if (isThrowError) throw Error(`[valli.js]: property "${property}" in object: ${convertToText(object)} is required but not set`);
       } else {
@@ -110,11 +124,14 @@
 
   function shape(shapeInterface, isThrowError = false, isRequired = false) {
     if (isRequired) {
-      return function required(value) {
+      const requiredFunction = (value) => {
         if (!isObject(value)) return false;
         if (isObject(shapeInterface)) return checkTypes(shapeInterface, value, isThrowError);
         return false;
       };
+
+      setValliMeta(requiredFunction, { name: 'required' });
+      return requiredFunction;
     }
 
     return (value) => {
@@ -128,11 +145,14 @@
 
   function instance(prototypeObject, isRequired = false) {
     if (isRequired) {
-      return function required(value) {
+      const requiredFunction = (value) => {
         if (isUndefined(value)) return false;
         if (isObject(value)) return value instanceof prototypeObject;
         return false;
       };
+
+      setValliMeta(requiredFunction, { name: 'required' });
+      return requiredFunction;
     }
 
     return value => value instanceof prototypeObject;
@@ -245,6 +265,8 @@
         }
         return is[property](value);
       };
+
+      setValliMeta(is[property].required, { name: 'required' });
     }
   });
 
