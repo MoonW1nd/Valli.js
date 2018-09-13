@@ -22,11 +22,6 @@
   },
   "homepage": "https://github.com/MoonW1nd/Valli.js#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.12.0",
@@ -34,10 +29,6 @@
     "jest": "^22.4.4",
     "jsonlint": "^1.6.3",
     "lint-staged": "^7.0.0",
-    "tslint": "^5.9.1",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11",
-    "webpack-dev-server": "^3.1.1"
   },
   "lint-staged": {
     "linters": {
