@@ -15,6 +15,9 @@ Todo:
     ☐ come up with set options for processing
     ☐ create method crossbrowsing getFunctionName
     ☐ resolve problem with JSON.Stringify (in error log object property with value undefined not image)
+    ☐ rewrite on TypeScript
+    ☐ publish as npm package
+
 
     types for validation:
       ✔ Number @done(18-05-19 10:42)
